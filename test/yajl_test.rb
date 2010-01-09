@@ -14,10 +14,10 @@ class YajlTest < ActiveSupport::TestCase
     %({"a": "a's, b's and c's", "b": "5,000"})   => {"a" => "a's, b's and c's", "b" => "5,000"},
     # multibyte
     %({"matzue": "松江", "asakusa": "浅草"}) => {"matzue" => "松江", "asakusa" => "浅草"},
-    %({"a": "2007-01-01"})                       => {'a' => Date.new(2007, 1, 1)}, 
-    %({"a": "2007-01-01 01:12:34 Z"})            => {'a' => Time.utc(2007, 1, 1, 1, 12, 34)}, 
+    %({"a": "2007-01-01"})                       => {'a' => Date.new(2007, 1, 1)},
+    %({"a": "2007-01-01 01:12:34 Z"})            => {'a' => Time.utc(2007, 1, 1, 1, 12, 34)},
     # no time zone
-    %({"a": "2007-01-01 01:12:34"})              => {'a' => "2007-01-01 01:12:34"}, 
+    %({"a": "2007-01-01 01:12:34"})              => {'a' => "2007-01-01 01:12:34"},
     # needs to be *exact*
     %({"a": " 2007-01-01 01:12:34 Z "})          => {'a' => " 2007-01-01 01:12:34 Z "},
     %({"a": "2007-01-01 : it's your birthday"})  => {'a' => "2007-01-01 : it's your birthday"},
@@ -44,7 +44,7 @@ class YajlTest < ActiveSupport::TestCase
       end
     end
   end
-  
+
   test "json decodes time json with time parsing disabled" do
     ActiveSupport.parse_json_times = false
     expected = {"a" => "2007-01-01 01:12:34 Z"}
@@ -52,6 +52,6 @@ class YajlTest < ActiveSupport::TestCase
   end
 
   def test_failed_json_decoding
-    assert_raise(ActiveSupport::JSON::ParseError) { ActiveSupport::JSON.decode(%({: 1})) }
+    assert_raise(YajlRails::ParseError) { ActiveSupport::JSON.decode(%({: 1})) }
   end
 end
