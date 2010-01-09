@@ -1,11 +1,9 @@
 require 'stringio'
 
-module ActiveSupport::JSON
-  ParseError = Yajl::ParseError
-end
-  
 module YajlRails
   extend self
+
+  ParseError = Yajl::ParseError
 
   # Converts a JSON string into a Ruby object.
   def decode(json)
